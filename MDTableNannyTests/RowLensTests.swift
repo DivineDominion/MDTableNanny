@@ -5,23 +5,25 @@ class RowLensTests: XCTestCase {
 
     func testSubscript_EmptyTable_FirstRow_IsEmpty() {
 
-        let lens = RowLens(table: Table(tableSize: TableSize()))
+        let lens = RowLens(table: MarkdownTable(tableSize: TableSize()))
 
         XCTAssert(lens[Index(1)!].isEmpty)
     }
 
     func testSubscript_EmptyTable_100thRow_IsEmpty() {
 
-        let lens = RowLens(table: Table(tableSize: TableSize()))
+        let lens = RowLens(table: MarkdownTable(tableSize: TableSize()))
 
         XCTAssert(lens[Index(100)!].isEmpty)
     }
 
     func testSubscript_1x1Table_FirstRow_ReturnsRowAt1stIndex() {
 
-        let table = Table(cells: [
-            cell(column: 1, row: 1, text: "content")
-            ].mapDictionary { $0 }, tableSize: TableSize(columns: 1, rows: 1))
+        let table = MarkdownTable(
+            cells: [
+                cell(column: 1, row: 1, text: "content")
+            ].mapDictionary { $0 },
+            tableSize: TableSize(columns: 1, rows: 1))
 
         let lens = RowLens(table: table)
 
@@ -31,9 +33,11 @@ class RowLensTests: XCTestCase {
 
     func testSubscript_1x1Table_SecondRow_IsEmpty() {
 
-        let table = Table(cells: [
-            cell(column: 1, row: 1, text: "irrelevant")
-            ].mapDictionary { $0 }, tableSize: TableSize(columns: 1, rows: 1))
+        let table = MarkdownTable(
+            cells: [
+                cell(column: 1, row: 1, text: "irrelevant")
+            ].mapDictionary { $0 },
+            tableSize: TableSize(columns: 1, rows: 1))
 
         let lens = RowLens(table: table)
 
@@ -42,10 +46,12 @@ class RowLensTests: XCTestCase {
 
     func testSubscript_3x1TableWithEmpty2ndColumn_FirstRow_ReturnsRowAt1stAnd3rdIndexOnly() {
 
-        let table = Table(cells: [
-            cell(column: 1, row: 1, text: "first"),
-            cell(column: 3, row: 1, text: "second")
-            ].mapDictionary { $0 }, tableSize: TableSize(columns: 3, rows: 1))
+        let table = MarkdownTable(
+            cells: [
+                cell(column: 1, row: 1, text: "first"),
+                cell(column: 3, row: 1, text: "second")
+            ].mapDictionary { $0 },
+            tableSize: TableSize(columns: 3, rows: 1))
 
         let lens = RowLens(table: table)
 
@@ -61,7 +67,7 @@ class RowLensTests: XCTestCase {
 
     func testStart_6x3Table_Returns1() {
 
-        let table = Table(tableSize: TableSize(columns: 6, rows: 3))
+        let table = MarkdownTable(tableSize: TableSize(columns: 6, rows: 3))
 
         let lens = RowLens(table: table)
 
@@ -70,7 +76,7 @@ class RowLensTests: XCTestCase {
 
     func testEnd_2x3Table_Returns4() {
 
-        let table = Table(tableSize: TableSize(columns: 2, rows: 3))
+        let table = MarkdownTable(tableSize: TableSize(columns: 2, rows: 3))
 
         let lens = RowLens(table: table)
 

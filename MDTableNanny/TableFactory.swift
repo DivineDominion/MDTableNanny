@@ -40,14 +40,14 @@ class TableFactory {
         self.cellFactory = cellFactory
     }
 
-    func table(data columns: [ColumnData]) throws -> Table {
+    func table(data columns: [ColumnData], variant: MarkdownTableVariant = .Unknown) throws -> MarkdownTable {
 
         let columnCount = columns.count
         let largestRowCount = columns.map { $0.rows.count }.sort().last ?? 0
 
         let size = TableSize(columns: UInt(columnCount), rows: UInt(largestRowCount))
 
-        var table = Table(tableSize: size, cells: [:])
+        var table = MarkdownTable(tableSize: size, cells: [:], variant: variant)
 
         for (columnIndex, columnData) in columns.indexedElements() {
 

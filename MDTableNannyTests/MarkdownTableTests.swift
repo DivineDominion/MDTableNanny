@@ -1,11 +1,11 @@
 import XCTest
 @testable import MDTableNanny
 
-class TableTests: XCTestCase {
+class MarkdownTableTests: XCTestCase {
 
     func testEmptyTable_Has0x0Size() {
 
-        XCTAssertEqual(Table().tableSize, TableSize(columns: 0, rows: 0))
+        XCTAssertEqual(MarkdownTable().tableSize, TableSize(columns: 0, rows: 0))
     }
     
 
@@ -16,7 +16,7 @@ class TableTests: XCTestCase {
 
     func testInserting_EmptyTable_ReturnsEmptyTable() {
 
-        let tablePrototype = Table()
+        let tablePrototype = MarkdownTable()
         var table = tablePrototype
         let cell = NewCell(column: irrelevantIndex, row: irrelevantIndex, data: irrelevantCellData)
         table.insert(cell: cell)
@@ -26,7 +26,7 @@ class TableTests: XCTestCase {
 
     func testInserting_OutsideColumnBounds_ReturnsEmptyTableWithSameSize() {
 
-        let tablePrototype = Table(tableSize: TableSize(columns: 10, rows: 100))
+        let tablePrototype = MarkdownTable(tableSize: TableSize(columns: 10, rows: 100))
         var table = tablePrototype
         let cell = NewCell(column: Index(11)!, row: Index(5)!, data: irrelevantCellData)
 
@@ -37,7 +37,7 @@ class TableTests: XCTestCase {
 
     func testInserting_OutsideRowBounds_ReturnsEmptyTableWithSameSize() {
 
-        let tablePrototype = Table(tableSize: TableSize(columns: 10, rows: 100))
+        let tablePrototype = MarkdownTable(tableSize: TableSize(columns: 10, rows: 100))
         var table = tablePrototype
         let cell = NewCell(column: Index(2)!, row: Index(101)!, data: irrelevantCellData)
 
@@ -48,7 +48,7 @@ class TableTests: XCTestCase {
 
     func testInserting_InsideTableBounds_ReturnsDifferentTable() {
 
-        let tablePrototype = Table(tableSize: TableSize(columns: 10, rows: 100))
+        let tablePrototype = MarkdownTable(tableSize: TableSize(columns: 10, rows: 100))
         var table = tablePrototype
         let cell = NewCell(column: Index(6)!, row: Index(5)!, data: irrelevantCellData)
 
@@ -61,7 +61,7 @@ class TableTests: XCTestCase {
 
         let coordinates = Coordinates(column: Index(2)!, row: Index(5)!)
         let data = CellData.Text("the content!")
-        var table = Table(tableSize: TableSize(columns: 10, rows: 100))
+        var table = MarkdownTable(tableSize: TableSize(columns: 10, rows: 100))
 
         table.insert(cell: NewCell(coordinates: coordinates, data: data))
 

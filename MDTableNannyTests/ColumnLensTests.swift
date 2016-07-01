@@ -116,13 +116,13 @@ class ColumnLensTests: XCTestCase {
         return (Coordinates(column: Index(column)!, row: Index(row)!), .Text(text))
     }
 
-    func createTable(cells cells: [Coordinates : CellData] = [ : ], columnHeadings: [Index : ColumnHeading] = [ : ]) -> Table {
+    func createTable(cells cells: [Coordinates : CellData] = [ : ], columnHeadings: [Index : ColumnHeading] = [ : ]) -> MarkdownTable {
 
         // Determine size by content
         let outermostCellCoord = cells.keys.sort { $0.column > $1.column && $0.row > $1.row }.last
         let tableSize = outermostCellCoord.map { TableSize(columns: $0.column.value, rows: $0.row.value) } ?? TableSize()
 
-        return Table(tableSize: tableSize, cells: cells, columnHeadings: columnHeadings)
+        return MarkdownTable(tableSize: tableSize, cells: cells, columnHeadings: columnHeadings)
     }
 
 }

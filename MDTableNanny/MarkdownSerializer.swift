@@ -1,15 +1,5 @@
 import Foundation
 
-extension TableRepresentation where Self: TableState {
-
-    var markdownTable: MarkdownTable {
-
-        guard let markdownSelf = self as? MarkdownTable
-            else { return MarkdownTable(variant: .Unknown, tableContents: self) }
-        return markdownSelf
-    }
-}
-
 class MarkdownSerializer {
 
     init() { }

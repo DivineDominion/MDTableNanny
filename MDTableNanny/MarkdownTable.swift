@@ -1,28 +1,43 @@
 import Foundation
 
-struct MarkdownTable {
+struct MarkdownTable: TableRepresentation {
 
     private(set) var variant: MarkdownTableVariant
-    private(set) var table: TableState
+    private(set) var tableData: TableData
+    private(set) var tableSize: TableSize
+    private(set) var columnInformation: ColumnInformation
 
-    init(variant: MarkdownTableVariant, tableContents table: TableState = Table()) {
+    init(tableSize: TableSize = TableSize(),
+         cells: [Coordinates : CellData] = [:],
+         columnHeadings: [Index : ColumnHeading] = [:],
+         variant: MarkdownTableVariant = .Unknown) {
 
+        self.tableData = TableData(cells: cells)
+        self.tableSize = tableSize
+        self.columnInformation = ColumnInformation(columnHeadings: columnHeadings)
         self.variant = variant
-        self.table = table
     }
-}
 
-extension MarkdownTable: TableRepresentation {
+    mutating func prepareColumn(columnIndex index: Index, heading: ColumnHeading) {
 
-    var tableSize: TableSize { return table.tableSize }
-    var tableData: TableData { return table.tableData }
-    var columnInformation: ColumnInformation { return table.columnInformation }
+        columnInformation[index] = heading
+    }
 }
 
 extension MarkdownTable: MutableTableRepresentation {
 
     mutating func insert(cell newCell: NewCell) {
 
-        table.insert(cell: newCell)
+        guard tableSize.accomodatesCell(newCell)
+            else { return }
+
+        tableData.insertCell(newCell)
     }
+}
+
+extension MarkdownTable: Equatable { }
+
+func ==(lhs: MarkdownTable, rhs: MarkdownTable) -> Bool {
+
+    return lhs.tableSize == rhs.tableSize && lhs.tableData == rhs.tableData && lhs.columnInformation == rhs.columnInformation && lhs.variant == rhs.variant
 }

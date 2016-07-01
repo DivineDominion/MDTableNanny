@@ -3,13 +3,6 @@ import XCTest
 
 class MarkdownSerializerTests: XCTestCase {
 
-    func serializedWrappedTable(table: Table) -> [String] {
-
-        let markdownTable = MarkdownTable(variant: .SurroundingPipes, tableContents: table)
-
-        return serializedTable(markdownTable)
-    }
-
     func serializedTable(table: MarkdownTable) -> [String] {
 
         let contents = MarkdownContents(parts: [MarkdownPart.Table(table)])
@@ -22,11 +15,12 @@ class MarkdownSerializerTests: XCTestCase {
     func testRenderer_SingleCell_Has1Element() {
 
         let content = "the cell"
-        let table = Table(
+        let table = MarkdownTable(
             tableSize: TableSize(columns: 1, rows: 1),
             cells: [Coordinates(column: 1, row: 1)! : CellData.Text(content)],
-            columnHeadings: [:])
-        let markdown = serializedWrappedTable(table)
+            columnHeadings: [:],
+            variant: .SurroundingPipes)
+        let markdown = serializedTable(table)
 
         XCTAssertEqual(markdown.count, 1)
         XCTAssertEqual(markdown.first, "| the cell |")
@@ -34,14 +28,15 @@ class MarkdownSerializerTests: XCTestCase {
 
     func testRenderer_1RowWithGapsBetween2Cells_Has1MarkdownTableRow() {
 
-        let table = Table(
+        let table = MarkdownTable(
             tableSize: TableSize(columns: 4, rows: 1),
             cells: [
                 Coordinates(column: 2, row: 1)! : CellData.Text("first"),
                 Coordinates(column: 4, row: 1)! : CellData.Text("second")
             ],
-            columnHeadings: [:])
-        let markdown = serializedWrappedTable(table)
+            columnHeadings: [:],
+            variant: .SurroundingPipes)
+        let markdown = serializedTable(table)
 
         XCTAssertEqual(markdown.count, 1)
         XCTAssertEqual(markdown.first, "|   | first |   | second |")
@@ -49,7 +44,7 @@ class MarkdownSerializerTests: XCTestCase {
 
     func testRenderer_3RowsWithGapsBetweenCells_Generates3MarkdownTableRows() {
 
-        let table = Table(
+        let table = MarkdownTable(
             tableSize: TableSize(columns: 4, rows: 3),
             cells: [
                 Coordinates(column: 2, row: 1)! : CellData.Text("first"),
@@ -58,8 +53,9 @@ class MarkdownSerializerTests: XCTestCase {
                 Coordinates(column: 1, row: 3)! : CellData.Text("first"),
                 Coordinates(column: 4, row: 3)! : CellData.Text("second")
             ],
-            columnHeadings: [:])
-        let markdown = serializedWrappedTable(table)
+            columnHeadings: [:],
+            variant: .SurroundingPipes)
+        let markdown = serializedTable(table)
 
         XCTAssertEqual(markdown.count, 3)
         let expectedResult = [
@@ -76,8 +72,8 @@ class MarkdownSerializerTests: XCTestCase {
             Index(1)! : ColumnHeading.Text("first"),
             Index(3)! : ColumnHeading.Text("second")
         ]
-        let table = Table(tableSize: TableSize(columns: 4, rows: 0), columnHeadings: headings)
-        let markdown = serializedWrappedTable(table)
+        let table = MarkdownTable(tableSize: TableSize(columns: 4, rows: 0), columnHeadings: headings, variant: .SurroundingPipes)
+        let markdown = serializedTable(table)
 
         XCTAssertEqual(markdown.count, 2)
         let expectedResult = [
@@ -90,38 +86,27 @@ class MarkdownSerializerTests: XCTestCase {
 
     // MARK: Variant preservance
 
-    let table = Table(
-        tableSize: TableSize(columns: 4, rows: 3),
-        cells: [
-            Coordinates(column: 2, row: 1)! : CellData.Text("2"),
-            Coordinates(column: 4, row: 1)! : CellData.Text("4"),
+    func createTable(variant variant: MarkdownTableVariant) -> MarkdownTable {
 
-            Coordinates(column: 1, row: 3)! : CellData.Text("1"),
-            Coordinates(column: 3, row: 3)! : CellData.Text("3")
-        ],
-        columnHeadings: [
-            Index(1)! : ColumnHeading.Text("AAA"),
-            Index(3)! : ColumnHeading.Text("CCC")
-        ])
+        return MarkdownTable(
+            tableSize: TableSize(columns: 4, rows: 3),
+            cells: [
+                Coordinates(column: 2, row: 1)! : CellData.Text("2"),
+                Coordinates(column: 4, row: 1)! : CellData.Text("4"),
 
-    func testGenericTable_GeneratesMarkdownTableWithPipes() {
-
-        let markdown = serializedWrappedTable(table)
-
-        XCTAssertEqual(markdown.count, 5)
-        let expectedResult = [
-            "| AAA |   | CCC |   |",
-            "| --- | - | --- | - |",
-            "|     | 2 |     | 4 |",
-            "|     |   |     |   |",
-            "| 1   |   | 3   |   |",
-        ]
-        XCTAssertEqual(markdown, expectedResult)
+                Coordinates(column: 1, row: 3)! : CellData.Text("1"),
+                Coordinates(column: 3, row: 3)! : CellData.Text("3")
+            ],
+            columnHeadings: [
+                Index(1)! : ColumnHeading.Text("AAA"),
+                Index(3)! : ColumnHeading.Text("CCC")
+            ],
+            variant: variant)
     }
 
     func testMarkdownTable_NoPipes_GeneratesMarkdownTableWithoutPipes() {
 
-        let table = MarkdownTable(variant: .NoPipes, tableContents: self.table)
+        let table = createTable(variant: .NoPipes)
         let markdown = serializedTable(table)
 
         XCTAssertEqual(markdown.count, 5)
@@ -137,7 +122,7 @@ class MarkdownSerializerTests: XCTestCase {
 
     func testMarkdownTable_LeadingPipes_GeneratesMarkdownTableWithLeadingPipes() {
 
-        let table = MarkdownTable(variant: .LeadingPipe, tableContents: self.table)
+        let table = createTable(variant: .LeadingPipe)
         let markdown = serializedTable(table)
 
         XCTAssertEqual(markdown.count, 5)
@@ -153,7 +138,7 @@ class MarkdownSerializerTests: XCTestCase {
 
     func testMarkdownTable_TrailingPipes_GeneratesMarkdownTableWithTrailingPipes() {
 
-        let table = MarkdownTable(variant: .TrailingPipe, tableContents: self.table)
+        let table = createTable(variant: .TrailingPipe)
         let markdown = serializedTable(table)
 
         XCTAssertEqual(markdown.count, 5)
@@ -169,7 +154,7 @@ class MarkdownSerializerTests: XCTestCase {
 
     func testMarkdownTable_SurroundingPipes_GeneratesMarkdownTableWithSurroundingPipes() {
 
-        let table = MarkdownTable(variant: .SurroundingPipes, tableContents: self.table)
+        let table = createTable(variant: .SurroundingPipes)
         let markdown = serializedTable(table)
 
         XCTAssertEqual(markdown.count, 5)
@@ -185,7 +170,7 @@ class MarkdownSerializerTests: XCTestCase {
 
     func testMarkdownTable_UnknownVariant_GeneratesMarkdownTableWithTrailingPipes() {
 
-        let table = MarkdownTable(variant: .Unknown, tableContents: self.table)
+        let table = createTable(variant: .Unknown)
         let markdown = serializedTable(table)
 
         XCTAssertEqual(markdown.count, 5)

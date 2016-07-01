@@ -14,27 +14,27 @@ class TableFactoryTests: XCTestCase {
 
     func testTable_EmptyArray_ReturnsEmptyTable() {
 
-        var result: Table?
+        var result: MarkdownTable?
         expectNoError { () -> Void in
             result = try factory.table(data: [])
         }
 
         XCTAssertNotNil(result)
         if let result = result {
-            XCTAssertEqual(result, Table())
+            XCTAssertEqual(result, MarkdownTable())
         }
     }
 
     func testTable_EmptyRowsInColumn_ReturnsTableWithSingleColumn() {
 
-        var result: Table?
+        var result: MarkdownTable?
         expectNoError { () -> Void in
             result = try factory.table(data: [TableFactory.ColumnData(heading: .None, rows: [])])
         }
 
         XCTAssertNotNil(result)
         if let result = result {
-            let expectedTable = Table(
+            let expectedTable = MarkdownTable(
                 tableSize: TableSize(columns: 1, rows: 0),
                 cells: [ : ])
             XCTAssertEqual(result, expectedTable)
@@ -45,14 +45,14 @@ class TableFactoryTests: XCTestCase {
 
         let title = "the column title"
 
-        var result: Table?
+        var result: MarkdownTable?
         expectNoError { () -> Void in
             result = try factory.table(data: [TableFactory.ColumnData(heading: .Text(title), rows: [])])
         }
 
         XCTAssertNotNil(result)
         if let result = result {
-            let expectedTable = Table(
+            let expectedTable = MarkdownTable(
                 tableSize: TableSize(columns: 1, rows: 0),
                 cells: [ : ],
                 columnHeadings: [ Index(1)! :.Text(title) ])
@@ -85,14 +85,14 @@ class TableFactoryTests: XCTestCase {
         let title = "column title"
         let rowContent = "test content"
 
-        var result: Table?
+        var result: MarkdownTable?
         expectNoError { () -> Void in
             result = try factory.table(data: [TableFactory.ColumnData(heading: .Text(title), rows: [rowContent])])
         }
 
         XCTAssertNotNil(result)
         if let result = result {
-            let expectedTable = Table(
+            let expectedTable = MarkdownTable(
                 tableSize: TableSize(columns: 1, rows: 1),
                 cells: [ Coordinates(column: Index(1)!, row: Index(1)!) : .Text(rowContent) ],
                 columnHeadings: [Index(1)! : .Text(title)])
@@ -105,14 +105,14 @@ class TableFactoryTests: XCTestCase {
 
         let title = "the title"
 
-        var result: Table?
+        var result: MarkdownTable?
         expectNoError { () -> Void in
             result = try factory.table(data: [TableFactory.ColumnData(heading: .Text(title), rows: ["first", nil, nil, nil, "fifth"])])
         }
 
         XCTAssertNotNil(result)
         if let result = result {
-            let expectedTable = Table(
+            let expectedTable = MarkdownTable(
                 tableSize: TableSize(columns: 1, rows: 5),
                 cells: [
                     Coordinates(column: Index(1)!, row: Index(1)!) : .Text("first"),
@@ -126,7 +126,7 @@ class TableFactoryTests: XCTestCase {
 
     func testTable_ComplexTable_ReturnsTableContents() {
 
-        var result: Table?
+        var result: MarkdownTable?
         expectNoError { () -> Void in
             result = try factory.table(data: [
                 TableFactory.ColumnData(heading: .Text("first column"), rows: ["1", nil, "3"]),
@@ -136,7 +136,7 @@ class TableFactoryTests: XCTestCase {
 
         XCTAssertNotNil(result)
         if let result = result {
-            let expectedTable = Table(
+            let expectedTable = MarkdownTable(
                 tableSize: TableSize(columns: 2, rows: 6),
                 cells: [
                     Coordinates(column: Index(1)!, row: Index(1)!) : .Text("1"),

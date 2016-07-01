@@ -28,9 +28,9 @@ class MarkdownParser {
     private func markdownTable(lines lines: Lines, includeHeader: Bool, tableFactory: TableFactory) throws -> MarkdownTable {
 
         let tableContents = self.tableContentsFactory.build(lines: lines, hasHeaders: includeHeader)
-        let table = try tableFactory.table(data: tableContents.columnData)
         let variant = tableContents.variant
-        let markdownTable = MarkdownTable(variant: variant, tableContents: table)
-        return markdownTable
+        let table = try tableFactory.table(data: tableContents.columnData, variant: variant)
+        
+        return table
     }
 }

@@ -20,7 +20,8 @@ struct NewCell {
         self.data = data
     }
 
-    func insert(table: Table) -> Table {
+    @available(*, deprecated=1.0)
+    func insert(table: MutableTableRepresentation) -> MutableTableRepresentation {
 
         var table = table
         table.insert(cell: self)

@@ -5,10 +5,10 @@ class NormalizeMarkdownTableTests: XCTestCase {
 
     func testNormalization_EmptyCells() {
 
-        let table = createTable(
+        let markdownTable = createTable(
             cells: [["", "", ""]],
-            headings: [])
-        let markdownTable = MarkdownTable(variant: .SurroundingPipes, tableContents: table)
+            headings: [],
+            variant: .SurroundingPipes)
         let normalizer = NormalizeMarkdownTable(table: markdownTable)
 
         let result = normalizer.renderedTable()
@@ -21,10 +21,10 @@ class NormalizeMarkdownTableTests: XCTestCase {
 
     func testNormalization_EscapingPipes() {
 
-        let table = createTable(
+        let markdownTable = createTable(
             cells: [["AA", "B | b", "CCC"]],
-            headings: [.Text("1"), .Text("2|2"), .Text("3")])
-        let markdownTable = MarkdownTable(variant: .SurroundingPipes, tableContents: table)
+            headings: [.Text("1"), .Text("2|2"), .Text("3")],
+            variant: .SurroundingPipes)
         let normalizer = NormalizeMarkdownTable(table: markdownTable)
 
         let result = normalizer.renderedTable()
@@ -39,10 +39,10 @@ class NormalizeMarkdownTableTests: XCTestCase {
 
     func testNormalization_GapColumn() {
 
-        let table = createTable(
+        let markdownTable = createTable(
             cells: [["AA", "", "C"]],
-            headings: [.Text("1"), .None, .Text("3")])
-        let markdownTable = MarkdownTable(variant: .SurroundingPipes, tableContents: table)
+            headings: [.Text("1"), .None, .Text("3")],
+            variant: .SurroundingPipes)
         let normalizer = NormalizeMarkdownTable(table: markdownTable)
 
         let result = normalizer.renderedTable()
@@ -57,10 +57,10 @@ class NormalizeMarkdownTableTests: XCTestCase {
 
     func testNormalization_NoPipes() {
 
-        let table = createTable(
+        let markdownTable = createTable(
             cells: [["AA", "B", "CCC"]],
-            headings: [.Text("1"), .Text("2222"), .Text("3")])
-        let markdownTable = MarkdownTable(variant: .NoPipes, tableContents: table)
+            headings: [.Text("1"), .Text("2222"), .Text("3")],
+            variant: .NoPipes)
         let normalizer = NormalizeMarkdownTable(table: markdownTable)
 
         let result = normalizer.renderedTable()
@@ -75,10 +75,10 @@ class NormalizeMarkdownTableTests: XCTestCase {
 
     func testNormalization_NoPipes_WithoutHeader() {
 
-        let table = createTable(
+        let markdownTable = createTable(
             cells: [["AA", "BB", "CCC"], ["DDDD", "E", "FF"]],
-            headings: [])
-        let markdownTable = MarkdownTable(variant: .NoPipes, tableContents: table)
+            headings: [],
+            variant: .NoPipes)
         let normalizer = NormalizeMarkdownTable(table: markdownTable)
 
         let result = normalizer.renderedTable()
@@ -92,10 +92,10 @@ class NormalizeMarkdownTableTests: XCTestCase {
 
     func testNormalization_NoPipes_WithHeadersSetToNone() {
 
-        let table = createTable(
+        let markdownTable = createTable(
             cells: [["AA", "BB", "CCC"], ["DDDD", "E", "FF"]],
-            headings: [.None, .None])
-        let markdownTable = MarkdownTable(variant: .NoPipes, tableContents: table)
+            headings: [.None, .None],
+            variant: .NoPipes)
         let normalizer = NormalizeMarkdownTable(table: markdownTable)
 
         let result = normalizer.renderedTable()
@@ -109,10 +109,10 @@ class NormalizeMarkdownTableTests: XCTestCase {
 
     func testNormalization_TrailingPipes() {
 
-        let table = createTable(
+        let markdownTable = createTable(
             cells: [["short", "long cell", "very long cell"]],
-            headings: [.Text("The first"), .Text("2nd"), .Text("3")])
-        let markdownTable = MarkdownTable(variant: .TrailingPipe, tableContents: table)
+            headings: [.Text("The first"), .Text("2nd"), .Text("3")],
+            variant: .TrailingPipe)
         let normalizer = NormalizeMarkdownTable(table: markdownTable)
 
         let result = normalizer.renderedTable()
@@ -127,10 +127,10 @@ class NormalizeMarkdownTableTests: XCTestCase {
 
     func testNormalization_LeadingPipes() {
 
-        let table = createTable(
+        let markdownTable = createTable(
             cells: [["slightly longer", "long cell", "very long cell"]],
-            headings: [.Text("The first"), .Text("2nd"), .Text("3")])
-        let markdownTable = MarkdownTable(variant: .LeadingPipe, tableContents: table)
+            headings: [.Text("The first"), .Text("2nd"), .Text("3")],
+            variant: .LeadingPipe)
         let normalizer = NormalizeMarkdownTable(table: markdownTable)
 
         let result = normalizer.renderedTable()
@@ -145,10 +145,10 @@ class NormalizeMarkdownTableTests: XCTestCase {
 
     func testNormalization_SurroundingPipes() {
 
-        let table = createTable(
+        let markdownTable = createTable(
             cells: [["foo", "bar cell", "baz"]],
-            headings: [.Text("AA"), .Text("B"), .Text("CCCC")])
-        let markdownTable = MarkdownTable(variant: .SurroundingPipes, tableContents: table)
+            headings: [.Text("AA"), .Text("B"), .Text("CCCC")],
+            variant: .SurroundingPipes)
         let normalizer = NormalizeMarkdownTable(table: markdownTable)
 
         let result = normalizer.renderedTable()
@@ -165,7 +165,7 @@ class NormalizeMarkdownTableTests: XCTestCase {
     // MARK: RenderedColumnWidths
 
     /// When a `heading`=="", inserts .None.
-    func createTable(cells cellData: [[String]], headings: [ColumnHeading]) -> Table {
+    func createTable(cells cellData: [[String]], headings: [ColumnHeading], variant: MarkdownTableVariant) -> MarkdownTable {
 
         var cells: [Coordinates : CellData] = [:]
 
@@ -182,18 +182,19 @@ class NormalizeMarkdownTableTests: XCTestCase {
         let columnCount = UInt(cellData.first?.count ?? 0)
         let rowCount = UInt(cellData.count)
 
-        return Table(
+        return MarkdownTable(
             tableSize: TableSize(columns: columnCount, rows: rowCount),
             cells: cells,
-            columnHeadings: columnHeadings)
+            columnHeadings: columnHeadings,
+            variant: variant)
     }
 
     func testColumnWidth_BasedOnLongestCellInColumn() {
 
-        let table = createTable(
+        let markdownTable = createTable(
             cells: [["test", "b"], ["a", "hello"]],
-            headings: [.Text("1"), .Text("2")])
-        let markdownTable = MarkdownTable(variant: .Unknown, tableContents: table)
+            headings: [.Text("1"), .Text("2")],
+            variant: .Unknown)
 
         let widths = RenderedColumnWidths(table: markdownTable)
 
@@ -203,10 +204,10 @@ class NormalizeMarkdownTableTests: XCTestCase {
 
     func testColumnWidth_WithPipeInLongestCellInColumn() {
 
-        let table = createTable(
+        let markdownTable = createTable(
             cells: [["test", "b"], ["a", "hel | lo"]],
-            headings: [.Text("1"), .Text("2")])
-        let markdownTable = MarkdownTable(variant: .Unknown, tableContents: table)
+            headings: [.Text("1"), .Text("2")],
+            variant: .Unknown)
 
         let widths = RenderedColumnWidths(table: markdownTable)
 
@@ -216,10 +217,10 @@ class NormalizeMarkdownTableTests: XCTestCase {
 
     func testColumnWidth_With1Emoji_ForCellInColumn() {
 
-        let table = createTable(
+        let markdownTable = createTable(
             cells: [["test", "b"], ["a", "hello 🤔"]],
-            headings: [.Text("1"), .Text("2")])
-        let markdownTable = MarkdownTable(variant: .Unknown, tableContents: table)
+            headings: [.Text("1"), .Text("2")],
+            variant: .Unknown)
 
         let widths = RenderedColumnWidths(table: markdownTable)
 
@@ -229,10 +230,10 @@ class NormalizeMarkdownTableTests: XCTestCase {
 
     func testColumnWidth_With2Emoji_ForCellInColumn() {
 
-        let table = createTable(
+        let markdownTable = createTable(
             cells: [["test", "b"], ["a", "hello 🤔x👍"]],
-            headings: [.Text("1"), .Text("2")])
-        let markdownTable = MarkdownTable(variant: .Unknown, tableContents: table)
+            headings: [.Text("1"), .Text("2")],
+            variant: .Unknown)
 
         let widths = RenderedColumnWidths(table: markdownTable)
 
@@ -242,10 +243,10 @@ class NormalizeMarkdownTableTests: XCTestCase {
 
     func testColumnWidth_WithShrug_ForCellInColumn() {
 
-        let table = createTable(
+        let markdownTable = createTable(
             cells: [["test", "b"], ["a", "hi ¯\\_(ツ)_/¯"]],
-            headings: [.Text("1"), .Text("2")])
-        let markdownTable = MarkdownTable(variant: .Unknown, tableContents: table)
+            headings: [.Text("1"), .Text("2")],
+            variant: .Unknown)
 
         let widths = RenderedColumnWidths(table: markdownTable)
 
@@ -255,10 +256,10 @@ class NormalizeMarkdownTableTests: XCTestCase {
 
     func testColumnWidth_BasedOnHeadingLength() {
 
-        let table = createTable(
+        let markdownTable = createTable(
             cells: [["test", "b"], ["a", "hello"]],
-            headings: [.Text("1"), .Text("sixths")])
-        let markdownTable = MarkdownTable(variant: .Unknown, tableContents: table)
+            headings: [.Text("1"), .Text("sixths")],
+            variant: .Unknown)
 
         let widths = RenderedColumnWidths(table: markdownTable)
 

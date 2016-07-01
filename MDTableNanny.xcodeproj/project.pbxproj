@@ -22,7 +22,6 @@
 		502C2BA81D263E8700BCCC38 /* MarkdownContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502C2BA51D263E8700BCCC38 /* MarkdownContents.swift */; };
 		502C2BA91D263E8700BCCC38 /* MarkdownTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502C2BA61D263E8700BCCC38 /* MarkdownTable.swift */; };
 		502C2BAA1D263E8700BCCC38 /* MarkdownTableVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502C2BA71D263E8700BCCC38 /* MarkdownTableVariant.swift */; };
-		502C2BAE1D263E9C00BCCC38 /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502C2BAB1D263E9C00BCCC38 /* Table.swift */; };
 		502C2BAF1D263E9C00BCCC38 /* TableRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502C2BAC1D263E9C00BCCC38 /* TableRepresentation.swift */; };
 		502C2BBC1D263EA800BCCC38 /* TableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502C2BB11D263EA800BCCC38 /* TableData.swift */; };
 		502C2BBD1D263EA800BCCC38 /* ColumnInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502C2BB21D263EA800BCCC38 /* ColumnInformation.swift */; };
@@ -57,7 +56,7 @@
 		502C2BF31D2641E500BCCC38 /* IntegerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502C2BF21D2641E500BCCC38 /* IntegerType.swift */; };
 		502C2BF51D2641FC00BCCC38 /* CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502C2BF41D2641FC00BCCC38 /* CollectionType.swift */; };
 		502C2BF71D26421400BCCC38 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502C2BF61D26421400BCCC38 /* Array.swift */; };
-		502C2C021D26424E00BCCC38 /* TableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502C2BF81D26424E00BCCC38 /* TableTests.swift */; };
+		502C2C021D26424E00BCCC38 /* MarkdownTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502C2BF81D26424E00BCCC38 /* MarkdownTableTests.swift */; };
 		502C2C031D26424E00BCCC38 /* TableSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502C2BF91D26424E00BCCC38 /* TableSizeTests.swift */; };
 		502C2C041D26424E00BCCC38 /* ColumnTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502C2BFA1D26424E00BCCC38 /* ColumnTests.swift */; };
 		502C2C051D26424E00BCCC38 /* RowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502C2BFB1D26424E00BCCC38 /* RowTests.swift */; };
@@ -107,7 +106,6 @@
 		502C2BA51D263E8700BCCC38 /* MarkdownContents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownContents.swift; sourceTree = "<group>"; };
 		502C2BA61D263E8700BCCC38 /* MarkdownTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownTable.swift; sourceTree = "<group>"; };
 		502C2BA71D263E8700BCCC38 /* MarkdownTableVariant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownTableVariant.swift; sourceTree = "<group>"; };
-		502C2BAB1D263E9C00BCCC38 /* Table.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
 		502C2BAC1D263E9C00BCCC38 /* TableRepresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableRepresentation.swift; sourceTree = "<group>"; };
 		502C2BB11D263EA800BCCC38 /* TableData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableData.swift; sourceTree = "<group>"; };
 		502C2BB21D263EA800BCCC38 /* ColumnInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnInformation.swift; sourceTree = "<group>"; };
@@ -142,7 +140,7 @@
 		502C2BF21D2641E500BCCC38 /* IntegerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegerType.swift; sourceTree = "<group>"; };
 		502C2BF41D2641FC00BCCC38 /* CollectionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionType.swift; sourceTree = "<group>"; };
 		502C2BF61D26421400BCCC38 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
-		502C2BF81D26424E00BCCC38 /* TableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableTests.swift; sourceTree = "<group>"; };
+		502C2BF81D26424E00BCCC38 /* MarkdownTableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownTableTests.swift; sourceTree = "<group>"; };
 		502C2BF91D26424E00BCCC38 /* TableSizeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSizeTests.swift; sourceTree = "<group>"; };
 		502C2BFA1D26424E00BCCC38 /* ColumnTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnTests.swift; sourceTree = "<group>"; };
 		502C2BFB1D26424E00BCCC38 /* RowTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RowTests.swift; sourceTree = "<group>"; };
@@ -239,7 +237,6 @@
 		502C2BA41D263E7A00BCCC38 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				502C2BAB1D263E9C00BCCC38 /* Table.swift */,
 				502C2BAC1D263E9C00BCCC38 /* TableRepresentation.swift */,
 				502C2BEC1D26405D00BCCC38 /* MutableTableRepresentation.swift */,
 				502C2BEE1D2640D800BCCC38 /* MultipleTables.swift */,
@@ -343,7 +340,7 @@
 		502C2C0D1D26425900BCCC38 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				502C2BF81D26424E00BCCC38 /* TableTests.swift */,
+				502C2BF81D26424E00BCCC38 /* MarkdownTableTests.swift */,
 				502C2BF91D26424E00BCCC38 /* TableSizeTests.swift */,
 				502C2BFA1D26424E00BCCC38 /* ColumnTests.swift */,
 				502C2BFB1D26424E00BCCC38 /* RowTests.swift */,
@@ -500,7 +497,6 @@
 				502C2BC41D263EA800BCCC38 /* RowContents.swift in Sources */,
 				502C2BD31D263F2600BCCC38 /* TableFactory.swift in Sources */,
 				502C2BF31D2641E500BCCC38 /* IntegerType.swift in Sources */,
-				502C2BAE1D263E9C00BCCC38 /* Table.swift in Sources */,
 				502C2BD01D263EEC00BCCC38 /* Direction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -521,7 +517,7 @@
 				502C2C051D26424E00BCCC38 /* RowTests.swift in Sources */,
 				502C2C041D26424E00BCCC38 /* ColumnTests.swift in Sources */,
 				502C2C251D2642FA00BCCC38 /* ErrorHelpers.swift in Sources */,
-				502C2C021D26424E00BCCC38 /* TableTests.swift in Sources */,
+				502C2C021D26424E00BCCC38 /* MarkdownTableTests.swift in Sources */,
 				502C2B961D263E4400BCCC38 /* MarkdownParserTests.swift in Sources */,
 				502C2C181D26428D00BCCC38 /* NormalizeMarkdownTableTests.swift in Sources */,
 				502C2C101D26428200BCCC38 /* TableFactoryTests.swift in Sources */,

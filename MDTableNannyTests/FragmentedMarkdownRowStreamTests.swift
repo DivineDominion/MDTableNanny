@@ -5,7 +5,7 @@ class FragmentedMarkdownRowStreamTests: XCTestCase {
 
     func testStream_3PartDocument_ReturnsSequenceOfContentLines() {
 
-        let table = Table(
+        let table = MarkdownTable(
             tableSize: TableSize(columns: 2, rows: 2),
             cells: [
                 Coordinates(column: 1, row: 1)! : .Text("33"),
@@ -16,7 +16,7 @@ class FragmentedMarkdownRowStreamTests: XCTestCase {
             ])
         let parts: [MarkdownPart] = [
             .Text(["1", "2"]),
-            .Table(MarkdownTable(variant: .Unknown, tableContents: table)),
+            .Table(table),
             .Text(["5", "6"]),
         ]
         let stream = FragmentedMarkdownRowStream(parts: parts)
