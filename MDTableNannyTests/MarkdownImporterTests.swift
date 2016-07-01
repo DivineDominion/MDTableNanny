@@ -2,7 +2,7 @@ import XCTest
 @testable import MDTableNanny
 
 private extension MarkdownContents {
-    var firstTable: TableState? { return self.tables.first }
+    var firstTable: MarkdownTable? { return self.tables.first }
 }
 
 class MarkdownImporterTests: XCTestCase {
@@ -149,7 +149,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.SurroundingPipes)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -177,7 +177,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.NoPipes)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -211,7 +211,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.LeadingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -245,7 +245,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.TrailingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -279,7 +279,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.SurroundingPipes)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -315,7 +315,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.LeadingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 1, rows: 1))
@@ -341,7 +341,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.TrailingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 1, rows: 1))
@@ -367,7 +367,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.SurroundingPipes)
         XCTAssertEqual(table.tableSize, TableSize(columns: 1, rows: 1))
@@ -396,7 +396,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.SurroundingPipes)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -429,7 +429,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.LeadingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -462,7 +462,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.LeadingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -495,7 +495,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.LeadingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -528,7 +528,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.LeadingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -561,7 +561,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.LeadingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -594,7 +594,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.LeadingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -627,7 +627,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.TrailingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -660,7 +660,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.TrailingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -693,7 +693,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.TrailingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -726,7 +726,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.TrailingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -759,7 +759,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.TrailingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -792,7 +792,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.TrailingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -825,7 +825,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.NoPipes)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -861,7 +861,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.NoPipes)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -895,7 +895,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.TrailingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -929,7 +929,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.TrailingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -963,7 +963,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.variant, MarkdownTableVariant.TrailingPipe)
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
@@ -999,7 +999,7 @@ class MarkdownImporterTests: XCTestCase {
         }
 
         XCTAssertEqual(maybeContents?.partsCount, 2)
-        guard let table = maybeContents?.firstTable as? MarkdownTable else { XCTFail("table should be of MarkdownTable type"); return }
+        guard let table = maybeContents?.firstTable else { XCTFail("table expected"); return }
 
         XCTAssertEqual(table.tableSize, TableSize(columns: 2, rows: 2))
 

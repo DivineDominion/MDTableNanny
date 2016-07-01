@@ -58,7 +58,7 @@ struct MarkdownContents {
 
 extension MarkdownContents: MultipleTables {
 
-    var tables: [TableState] {
+    var tables: [MarkdownTable] {
 
         return self.tableParts.flatMap {
             if case let .Table(table) = $0 { return table }
@@ -66,14 +66,11 @@ extension MarkdownContents: MultipleTables {
         }
     }
 
-    mutating func replaceTable(index index: Int, table: TableState) {
-
-        guard let markdownTable = table as? MarkdownTable
-            else { preconditionFailure("table must be of type MarkdownTable") }
+    mutating func replaceTable(index index: Int, table: MarkdownTable) {
 
         guard (0...tables.count).contains(index) else { return }
 
-        self[table: index] = .Table(markdownTable)
+        self[table: index] = .Table(table)
     }
 
     func rowStream() -> FragmentedMarkdownRowStream {

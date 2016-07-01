@@ -1,14 +1,11 @@
 import Foundation
 
-@available(*, deprecated=1.0)
-typealias TableState = MutableTableRepresentation
-
 protocol MultipleTables {
 
-    var tables: [TableState] { get }
+    var tables: [MarkdownTable] { get }
     var containsTable: Bool { get }
 
-    mutating func replaceTable(index index: Int, table: TableState)
+    mutating func replaceTable(index index: Int, table: MarkdownTable)
 
     func rowStream() -> FragmentedMarkdownRowStream
 }
