@@ -30,12 +30,4 @@ class MarkdownSerializer {
 
         return Array(tables.rowStream())
     }
-
-    @available(*, deprecated=1.0)
-    func content(table table: TableState) -> [String] {
-
-        let markdownTable = table.markdownTable
-        let normalizer = NormalizeMarkdownTable(table: markdownTable)
-        return normalizer.renderedTable()
-    }
 }
